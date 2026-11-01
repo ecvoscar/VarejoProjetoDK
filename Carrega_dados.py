@@ -1,25 +1,16 @@
 #Ler CSV Base_Varejo
 
+import os
 import pandas as pd
 
-CAMINHO_CSV = "Base_Varejo.csv"
+PASTA = os.path.dirname(os.path.abspath(__file__))
+CAMINHO_CSV_ORIGINAL = os.path.join(PASTA,'Base_Varejo_Original.csv')
+CAMINHO_CSV_LIMPA = os.path.join(PASTA,'Base_Varejo_Limpa.csv')
 
 def carregar_dados():
-    try:
-        df = pd.read_csv(CAMINHO_CSV, sep=';', encoding='latin-1'  )
+    
+        df = pd.read_csv(CAMINHO_CSV_LIMPA, sep=';')
         return df
-    except FileNotFoundError:
-        print(f"Erro: O arquivo {CAMINHO_CSV} não foi encontrado.")
-        return None
-    except pd.errors.EmptyDataError:
-        print(f"Erro: O arquivo {CAMINHO_CSV} está vazio.")
-        return None
-    except pd.errors.ParserError:
-        print(f"Erro: O arquivo {CAMINHO_CSV} não pôde ser analisado.")
-        return None
-    except Exception as e:
-        print(f"Ocorreu um erro inesperado: {e}")
-        return None
 
 if __name__ == "__main__":
     df = carregar_dados()
@@ -28,4 +19,3 @@ if __name__ == "__main__":
         print(df.head())
     else:
         print("Falha ao carregar os dados.")
-    
